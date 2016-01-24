@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<!--		RSTPWatcher1.0_6x6_1440x900px
+################################################################################################################
+Даний документ дозволяє відображати RSTP-потоки із відеокамер у вікні браузера IE з використанням плагіна VLC.
+Для роботи плагіна потрібно включити елементи ActiveX. Щоб розгорнути сторінку на ввесь екран натисни F11.
+Автором є Доможирський Павло (Infant23@ex.ua), документ створено 18.01.2016 (версія RSTPWatcher1.0).
+У данній версії матриця 6х6 (36 потоків), ортимізовано під монітор 1440х900px, 1 та 4 потоки займають по 4 місця.
+Для відображення відео із камери потрібно вказати адресу потоку, наприклад, для камер Geovision два потоки:
+			rtsp://admin:admin@192.168.0.10:8554/CH001.sdp
+			rtsp://admin:admin@192.168.0.10:8554/CH002.sdp
+Для камер Shenrun два потоки:
+			rtsp://admin:12345@192.168.0.10:554
+			rtsp://admin:12345@192.168.0.10:554/h264/ch1/sub/av_stream
+			rtsp://admin:12345@192.168.0.10:554/h264/ch2/sub/av_stream
+В посиланні на потік одразу вказується протокол, логін, пароль, IP-адреса, порт, потік.
+Посилання вказується у кожній чарунці TD.DIV.OBJECT у двох місцях:
+			1)	param name="Src"
+			2)	embed id="vlcEmb"
+Для формування матриці потрібно вказати кількість рядків та стовпчиків. Ширина буде обраховуватися автоматично.
+Висту потрібно підбиративручну під певний монітор (властивість OBJECT, EMBED {height}) у пікселях
+(висота екрану, поділена на кількість рядів).
+Можна об'єднувати кілька рядків та стовпців за допомогою параметрів colspan="n" rowspan="m",
+де n - кількість стовпців, m - кількість рядків, але висоту рядка потрібно задавати окремо, створивши клас .
+################################################################################################################
+-->
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+		<title>RSTPWatcher1.0_6x6_1440x900px</title>
+		<style>
+			HTML, BODY {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				position: fixed;	/* для прокрутки замінити на absolute*/
+				background: navy;
+			}
+			OBJECT, EMBED {
+				width: 100%;	/* автоматично підлаштовується під ширину */
+				height: 145px;	/* 100% */ /* висота підбирається індивідуально під екран, і приблизно рівна висоті екрану в пікселях розділену на кількість рядків */
+				position: relative;
+			}
+			TD.obj2x2 OBJECT, TD.obj2x2 EMBED {
+				height: 300px;	/* 100% */ /* висота підбирається індивідуально під екран, і приблизно рівна висоті екрану в пікселях розділену на загальну кількість рядків і домножену на кількість об'єднаних рядків*/
+			}
+
+		</style>
+	</head>
+	<body>
+		<table cellpadding="0" cellspacing="1" height="100%" width="100%">
+			
+			<tr>
+				<td colspan="2" rowspan="2" class="obj2x2"> <!-- об'єднання 2х2 чарунки і присвоєння класу -->
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td colspan="2" rowspan="2" class="obj2x2">
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.11:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+				<td>
+					<div>
+						<object classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab" id="vlc" events="True">
+						<param name="Src" value="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						<param name="ShowDisplay" value="True">
+						<param name="AutoLoop" value="False">
+						<param name="AutoPlay" value="True">
+						<embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" target="rtsp://admin:admin@192.168.0.10:8554/CH002.sdp">
+						</object>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
